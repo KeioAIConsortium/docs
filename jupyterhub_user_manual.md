@@ -41,6 +41,7 @@ ipyton kernel install --user --name custom-env
 ```
 
 新しく作ったenvironmentでは自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
+
 ![](./images/jupyterhub.png)
 
 参考: [https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html](https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html)
