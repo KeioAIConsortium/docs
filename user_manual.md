@@ -7,7 +7,7 @@
 特別な申請が無い限り、利用者に割り当てられるコンテナはNATされたネットワークに繋がっているため、直接SSHすることができません。したがって、一旦サーバ上で動いているゲートウェイコンテナにSSHでログインし、そこからもう一度SSHして自分のコンテナにアクセスする必要があります。ゲートウェイコンテナはサーバの2221番ポートからSSHできるようになっているため、コンテナの割当時に伝えられたサーバにまずSSHします。
 
 ```sh
-ssh -p 2221 [ユーザ名]@[サーバIP(e.g. casper.ai.hc.keio.ac.jp | balthasar.ai.hc.keio.ac.jp | melchior.ai.hc.keio.ac.jp | tippy.ai.hc.keio.ac.jp | chino.ai.hc.keio.ac.jp)]
+ssh -p 2221 [ユーザ名]@[サーバIP(*ai.hc.keio.ac.jp)]
 ```
 
 ここでゲートウェイコンテナのパスワードを入力します。次に割り当てられたコンテナにSSHします。
@@ -27,10 +27,14 @@ GPUの利用について
 GPUの利用申請があったユーザにはCUDA 10.1・cuDNN 7・Anaconda3をコンテナにインストールした状態で提供しています。次のコードで簡単に動作確認をすることができます。まずは、通常のSSHと同時にポートフォワーディングを行うため、
 
 ```sh
-ssh -p 2221 -L 8888:[コンテナIP]:8888 [ユーザ名]@[サーバIP (casper.ai.hc.keio.ac.jp | balthasar.ai.hc.keio.ac.jp | melchior.ai.hc.keio.ac.jp | tippy.ai.hc.keio.ac.jp | chino.ai.hc.keio.ac.jp)]
+ssh -p 2221 -L 8888:[コンテナIP]:8888 [ユーザ名]@[サーバIP(*ai.hc.keio.ac.jp)
 ```
 
-でゲートウェイコンテナにログインを行い、そこからは`ssh ubuntu@[コンテナIP]` でユーザコンテナにログインをします。
+でゲートウェイコンテナにログインを行い、そこからは
+```sh
+ssh ubuntu@[コンテナIP]`
+```
+でユーザコンテナにログインをします。
 ユーザコンテナにログインできた後、次のコマンドの実行をします。
 
 ```sh
