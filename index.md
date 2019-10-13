@@ -4,3 +4,4 @@
 
 ## Links
 - [ユーザマニュアル](./user_manual)
+- [JupyterHubユーザマニュアル](./jupyterhub_user_manual)

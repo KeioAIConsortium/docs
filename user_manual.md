@@ -50,4 +50,4 @@ export PATH=$PATH:$HOME/anaconda3/bin
 . /home/ubuntu/anaconda3/etc/profile.d/conda.sh
 ```
 
-参考: https://docs.anaconda.com/anaconda/install/uninstall/
+参考: [https://docs.anaconda.com/anaconda/install/uninstall/](https://docs.anaconda.com/anaconda/install/uninstall/)
