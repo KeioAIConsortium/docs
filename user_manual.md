@@ -30,7 +30,7 @@ GPUの利用申請があったユーザにはCUDA 10.1・cuDNN 7・Anaconda3を�
 ssh -p 2221 -L 8888:[コンテナIP]:8888 [ユーザ名]@[サーバIP (casper.ai.hc.keio.ac.jp | balthasar.ai.hc.keio.ac.jp | melchior.ai.hc.keio.ac.jp | tippy.ai.hc.keio.ac.jp | chino.ai.hc.keio.ac.jp)]
 ```
 
-でゲートウェイコンテナにログインを行い、そこからは ssh ubuntu@[コンテナIP] でユーザコンテナにログインをします。
+でゲートウェイコンテナにログインを行い、そこからは`ssh ubuntu@[コンテナIP]` でユーザコンテナにログインをします。
 ユーザコンテナにログインできた後、次のコマンドの実行をします。
 
 ```sh
@@ -40,10 +40,10 @@ wget 'https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials
 jupyter notebook --ip=0.0.0.0
 ```
 
-最後に、ブラウザでlocalhost:8888/?token=[トークン]を開いた上でbasic_classification.ipynbをクリックし、Cell -> Run Allで実行します。
+最後に、ブラウザで `localhost:8888/?token=[トークン]` を開いた上で `basic_classification.ipynb` をクリックし、 `Cell -> Run All` で実行します。
 
 ### Anaconda削除の仕方
-Anacondaを使わない場合、ホームディレクトリにある~/anaconda3を削除し、次の~/.bashrcの最後にある二行を消すことによりAnacondaをコンテナから消すことができます。
+Anacondaを使わない場合、ホームディレクトリにある `~/anaconda3` を削除し、次の `~/.bashrc` の最後にある二行を消すことによりAnacondaをコンテナから消すことができます。
 
 ```sh
 export PATH=$PATH:$HOME/anaconda3/bin
