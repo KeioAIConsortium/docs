@@ -9,13 +9,13 @@ JupyterHubへのアクセスはLDAP認証を用いているため、まずLDAP�
 ## アクセス手順
 認証の都合でJupyterHubのページに直接アクセスする前に一度だけSSH経由でのアクセスが必要になっています。一度アクセスを行うとユーザの設定が完了するので以降は直接URLにアクセスしログインすれば問題ありません。以下のコマンドを用いて、申請の際に伝えられたパスワードを入力しゲートウェイにログインを行って下さい。
 
-```sh
+```
 ssh -p 2221 [ユーザ名]@karen.ai.hc.keio.ac.jp
 ```
 
 ログインが完了するとパスワードを変更するよう促されるので、パスワードを変更した後そこからもう一度SSHを行いJupyterHubのサーバにアクセスします。新しく設定したパスワードを用いてログインを行うことができます。
 
-```sh
+```
 ssh [ユーザ名]@jupyterhub-container.lxd
 ```
 
@@ -44,4 +44,4 @@ ipyton kernel install --user --name custom-env
 
 ![](./images/jupyterhub.png)
 
-参考: [https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html](https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html)
+参考: <https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html>
