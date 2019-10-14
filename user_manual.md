@@ -38,7 +38,7 @@ ssh ubuntu@[コンテナIP]`
 ユーザコンテナにログインできた後、次のコマンドの実行をします。
 
 ```sh
-conda create -n test_env python=3.6 anaconda keras-gpu # 時間が掛かるので注意
+conda create -n test_env anaconda tensorflow-gpu # 時間が掛かるので注意
 conda activate test_env
 wget 'https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb' # Tensorflowのチュートリアル用ipynbファイル
 jupyter notebook --ip=0.0.0.0
