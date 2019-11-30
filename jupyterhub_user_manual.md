@@ -37,7 +37,7 @@ source ~/.bashrc
 ```sh
 conda create -n custom-env --clone base
 conda activate custom-env
-ipyton kernel install --user --name custom-env
+ipython kernel install --user --name custom-env
 ```
 
 新しく作ったenvironmentでは自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
