@@ -23,7 +23,8 @@ ssh -p 2221 user@tippy.ai.hc.keio.ac.jp
 
 再び同じ場所にSSHアクセスを行い、これで正常にログインができれば設定は完了です。接続を切り、ブラウザで [https://cocoa.ai.hc.keio.ac.jp](https://cocoa.ai.hc.keio.ac.jp) にアクセスしてください。ここで、`https`ではなく`http`と打ってしまうと正しくアクセスできないので注意して下さい。出てきたログインフォームにてユーザ名と新しく設定したパスワードを入力するとログインができます。
 
-<!-- ## カスタムパッケージ追加の方法
+<!--
+## カスタムパッケージ追加の方法
 condaやpipのパッケージを入れようとしても、パーミッション関係のエラーが出てきます。そこで、次のようにするとcondaやpipで独自のパッケージを自由にインストールできるようになります。まず、SSHやJupyter Notebookのターミナル等でシェルを得た後、condaの初期設定を次のコマンドで行います。
 
 ```sh
@@ -43,4 +44,10 @@ ipython kernel install --user --name custom-env
 
 ![](./images/jupyterhub.png)
 
-参考: <https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html> -->
+参考: <https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html>
+-->
+
+## 注意事項
+### セキュリティについて
+JupyterHubはパスワード認証となっており、インターネットのどこからでもアクセスできるようになっています。ログインにはパスワードマネージャを用いるなどして十分複雑かつ長いパスワードの利用を強く勧めます。
+
