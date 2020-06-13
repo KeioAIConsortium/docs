@@ -21,12 +21,16 @@ ssh -p 2221 user@tippy.ai.hc.keio.ac.jp
 
 ログインが完了するとパスワードを変更するよう促されるので、パスワードを変更します。
 
-再び同じ場所にSSHアクセスを行い、これで正常にログインができれば設定は完了です。接続を切り、ブラウザで [https://cocoa.ai.hc.keio.ac.jp](https://cocoa.ai.hc.keio.ac.jp) にアクセスしてください。ここで、`https`ではなく`http`と打ってしまうと正しくアクセスできないので注意して下さい。出てきたログインフォームにてユーザ名と新しく設定したパスワードを入力するとログインができます。
+再び同じ場所にSSHアクセスを行い、これで正常にログインができれば設定は完了です。接続を切り、ブラウザで [https://cocoa.ai.hc.keio.ac.jp](https://cocoa.ai.hc.keio.ac.jp) にアクセスしてください。ここで、`https`ではなく`http`と打ってしまうと正しくアクセスできないので注意して下さい。出てきたログインフォームにてユーザ名と新しく設定したパスワードを入力するとログインができます。**初回のログイン時は30秒から数分程度の時間が掛かる場合があります。ご了承下さい。**
 
 ## カスタムパッケージ追加の方法
-condaやpipのパッケージを入れようとしても、そのままではJupyterHubから利用できる状態にはなりません。そこで、次のようにするとcondaやpipで独自のパッケージを自由にインストールできるようになります。まず、Jupyter Notebookのターミナル経由で次のコマンドを実行します。
+condaやpipのパッケージを入れようとしても、そのままではJupyterHubから利用できる状態にはなりません。そこで、次のようにするとcondaやpipで独自のパッケージを自由にインストールできるようになります。まずは、JupyterHubにログインし、「New」→「Terminal」をクリックしターミナルを起動します。
 
-次に、自分用のcondaのenvironmentの作成を行い、Jupyter Notebookが認識するようにインストールします。今回は`custom-env`という名前で作成しますが、好きな名前で作ることもできます。
+![JupyterHubのターミナルの起動](./images/jupyter-open-terminal.png)
+
+![JupyterHubのターミナルの様子](./images/jupyter-terminal-image.png)
+
+ターミナルで次のコマンドを実行し、自分用のcondaのenvironmentの作成し、Jupyter Notebookが認識するようにインストールします。今回は`custom-env`という名前で作成しますが、好きな名前で作ることもできます。
 
 ```sh
 conda create -n custom-env --clone base
@@ -35,11 +39,30 @@ conda install anaconda
 ipython kernel install --user --name custom-env
 ```
 
-新しく作ったenvironmentでは自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
+新しく作ったenvironmentには`conda install [パッケージ名]`で自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
 
-![](./images/jupyterhub.png)
+![](./images/jupyter-select-env.png)
 
 参考: <https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html>
+
+## GPUを用いた機械学習の手順例
+GPUドライバやCUDAは既にインストールされた状態になっているため、GPUを用いた機械学習を行うにはconda等によって必要なパッケージのインストールを行えばできるようになります。ここではTensorFlowという機械学習のフレームワークを用いたチュートリアルを実行する手順を例としてとりあげます。[カスタムパッケージ追加の方法](#カスタムパッケージ追加の方法)と同様にターミナルを開きましょう。
+
+上で作成した`custom-env`を使いましょう。別な名前で作成した場合は、適宜読み替えてください。
+
+```
+conda activate custom-env
+conda install tensorflow-gpu
+wget 'https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb' # Tensorflowのチュートリアル用ipynbファイル
+```
+
+JupyterHubのアイコンをクリックしファイル一覧に戻り、
+新しくダウンロードした`classification.ipynb`をクリックし開きます。
+「Kernel」→「Change kernel」をクリックし、`custom-env`を選択します。
+
+![](./images/jupyter-change-kernel.png)
+
+最後に、１つ１つのセルを実行すればチュートリアルに沿って実行を進めることができます。
 
 ## 注意事項
 ### セキュリティについて
