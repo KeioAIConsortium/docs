@@ -56,19 +56,14 @@ conda install tensorflow-gpu
 wget 'https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb' # Tensorflowのチュートリアル用ipynbファイル
 ```
 
-JupyterHubのアイコンをクリックしファイル一覧に戻り、
-新しくダウンロードした`classification.ipynb`をクリックし開きます。
-「Kernel」→「Change kernel」をクリックし、`custom-env`を選択します。
+JupyterHubのアイコンをクリックしファイル一覧に戻り、新しくダウンロードした`classification.ipynb`をクリックし開きます。「Kernel」→「Change kernel」をクリックし、`custom-env`を選択します。
 
 ![](./images/jupyter-change-kernel.png)
 
 最後に、１つ１つのセルを実行すればチュートリアルに沿って実行を進めることができます。
 
 ## CUDAバージョンの変更について
-
-使用するライブラリやソフトウェアによっては、インストールされている
-CUDAバージョンに対応していない場合があります。それに伴い、別なCUDAバージョンを
-利用する場合は**Jupyter Notebookのシステムのバージョンによって手順が変わります**。
+使用するライブラリやソフトウェアによっては、インストールされているCUDAバージョンに対応していない場合があります。それに伴い、別なCUDAバージョンを利用する場合は**Jupyter Notebookのシステムのバージョンによって手順が変わります**。
 
 次のコマンドの出力によりCUDAバージョンの変更の手順がわかります:
 
@@ -76,8 +71,7 @@ CUDAバージョンに対応していない場合があります。それに伴�
 apt install --installed | grep cuda-repo
 ```
 
-もし、次のような出力が得られた場合はサーバ管理者による対応が必要となるため、
-お手数ですが `hai-help-group@keio.jp` までご連絡ください:
+もし、次のような出力が得られた場合はサーバ管理者による対応が必要となるため、お手数ですが `hai-help-group@keio.jp` までご連絡ください:
 
 ```
 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
@@ -99,9 +93,7 @@ WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
 apt list --installed | grep ^cuda-toolkit
 ```
 
-例えば、次のようにCUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、
-CUDA 11にアップグレードしたいとします。その場合、次のように一旦現在の
-CUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
+例えば、CUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、CUDA 11にアップグレードしたいとします。その場合、次のように一旦現在のCUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
 
 ```
 sudo apt remove cuda-toolkit-10-1
