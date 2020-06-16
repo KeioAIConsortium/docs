@@ -82,9 +82,7 @@ cuda-repo-ubuntu1804/unknown,now 10.2.89-1 amd64 [installed]
 一方、次のような出力が得られた場合は次の手順に進んでください。
 
 ```
-
 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
 ```
 
 次のコマンドで現在のCUDAのバージョンを確認することができます。
