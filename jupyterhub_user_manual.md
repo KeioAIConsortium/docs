@@ -160,7 +160,7 @@ apt list --installed | grep ^cuda-toolkit
 
 ```
 sudo apt remove --purge --yes cuda-toolkit-10-1
-sudo apt autoremove --yes
+sudo apt autoremove --purge --yes
 sudo apt install --yes cuda-toolkit-11-0
 ```
 
