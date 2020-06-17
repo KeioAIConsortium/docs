@@ -11,12 +11,14 @@ JupyterHubへのアクセスはLDAP認証を用いているため、まずLDAP�
 
 SSH接続では
 
-- WIndows 10の場合: コマンドプロンプトまたはPowerShell
-  - [こちら](https://docs.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_install_firstuse)に記載されている手順に従ってOpenSSHクライアントをインストールする必要があります
--  Windows 10以前の場合: Tera TermやPuTTY等のSSHクライアントソフトウェア
-- Mac / Linuxの場合: ターミナル
+- WIndows 10の場合: コマンドプロンプトまたはPowerShellでOpenSSHが使用できます。
+  - [こちら](https://docs.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_install_firstuse)に記載されている手順に従ってOpenSSHクライアントをインストールする必要があります。
+-  Windows 10以前の場合: Tera TermやPuTTY等のSSHクライアントソフトウェアを使用してください。
+- Mac / Linuxの場合: ターミナル上でOpenSSHが使用できます。
 
-を使用します。以下のコマンドを用いて、申請の際に伝えられたユーザ名と初期パスワードを入力しゲートウェイにログインを行ってください。
+OpenSSH以外の各種SSHクライアントソフトウェアを使用する場合は、それぞれのドキュメントを参考にしてください。個別のソフトウェアに対するサポートは致しかねます。ご了承ください。
+
+以下のコマンドを用いて、申請の際に伝えられたユーザ名と初期パスワードを入力しゲートウェイにログインを行ってください。
 
 ```
 ssh -p 2221 [ユーザ名]@[サーバ].ai.hc.keio.ac.jp
@@ -29,6 +31,7 @@ ssh -p 2221 user@tippy.ai.hc.keio.ac.jp
 ```
 
 SSHクライアントソフトウェアを使用する場合は、接続先のポートを2221番に設定してください。
+OpenSSH以外の各種SSHクライアントソフトウェアを使用する場合は、それぞれのドキュメントを参考にしてください。
 
 ログインが完了するとパスワードを変更するよう促されるので、パスワードを変更します。
 
@@ -80,7 +83,25 @@ Jupyter Notebookの利用の上で、TensorBoardの利用やウェブアプリ�
 ssh -p 2221 -L 8000:jupyterhub-singleuser-instance-[ユーザ名]:8000 [ユーザ名]@[サーバ].ai.hc.keio.ac.jp
 ```
 
-この時、ユーザ名とサーバは上と同様に設定します。すると、SSHが接続されている限り`locahost:8000`へのアクセスは透過的にJupyter Notebokインスタンスに転送されるようになります。
+この時、ユーザ名とサーバは上と同様に設定します。すると、SSHが接続されている限り`locahost:8000`へのアクセスは透過的にJupyter Notebokインスタンスの8000番ポートに転送されるようになります。
+
+また、Jupyter Notebookインスタンスに直接SSH接続をしたい場合は、公開鍵認証を使用することでアクセスできるようになります。これにはJupyterHubでTerminalを開き、ご自身の端末のSSH公開鍵を`~/.ssh/autorized_keys`に書き込んでおく必要があります。\
+実際に接続する際には、まず
+
+```
+ssh -p 2221 -A [ユーザ名]@[サーバ].ai.hc.keio.ac.jp
+```
+
+でサーバにSSH接続します。`-A`はagent forwardingを行うオプションです。\
+次に
+
+```
+ssh ubuntu@jupyterhub-singleuser-instance-[ユーザ名].lxd
+```
+
+を実行することで、JupyterHub上のターミナルを使わなくてもご自身のPCのターミナルから直接各種コマンドが実行できるようになります。
+
+ただし、本項のような使用方法の場合、あらかじめインスタンスが起動している必要があります。接続できない場合はJupyterHubにブラウザからログインし、インスタンスが立ち上がっていることを確認してください。立ち上がっていない場合は`Start My Server`をクリックしインスタンスを立ち上げてください。
 
 ## CUDAバージョンの変更について
 使用するライブラリやソフトウェアによっては、インストールされているCUDAバージョンに対応していない場合があります。それに伴い、別なCUDAバージョンを利用する場合は**Jupyter Notebookのシステムのバージョンによって手順が変わります**。
