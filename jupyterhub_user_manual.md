@@ -77,7 +77,7 @@ ssh -p 2221 -L 8000:jupyterhub-singleuser-instance-[ユーザ名]:8000 [ユー�
 次のコマンドの出力によりCUDAバージョンの変更の手順がわかります:
 
 ```
-apt install --installed | grep cuda-repo
+apt list --installed | grep cuda-repo
 ```
 
 もし、次のような出力が得られた場合はサーバ管理者による対応が必要となるため、お手数ですが `hai-help-group@keio.jp` までご連絡ください:
@@ -103,9 +103,9 @@ apt list --installed | grep ^cuda-toolkit
 例えば、CUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、CUDA 11にアップグレードしたいとします。その場合、次のように一旦現在のCUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
 
 ```
-sudo apt remove cuda-toolkit-10-1
-sudo apt install cuda-toolkit-11-0
-sudo apt autoremove
+sudo apt remove --purge --yes cuda-toolkit-10-1
+sudo apt autoremove --yes
+sudo apt install --yes cuda-toolkit-11-0
 ```
 
 なお、インストールが可能なCUDAバージョンの一覧は次のコマンドで確認することができます。
