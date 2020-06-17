@@ -3,6 +3,9 @@
 
 不明点・要望・トラブル等については `hai-help-group@keio.jp` までご連絡ください。
 
+## スペック
+JupyterHubはIntel XeonのCPUおよびGeForce RTX 2080 TiのGPUが搭載されたサーバ上で運用されています。
+
 ## 申請
 JupyterHubへのアクセスはLDAP認証を用いているため、まずLDAPアカウントの作成が必要です。[ホームページ](https://aic.keio.ac.jp/events/jupyterhub)から申請を行ってください。申請が通り次第、ユーザ名・パスワードが送付されます。
 
