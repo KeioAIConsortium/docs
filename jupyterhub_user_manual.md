@@ -109,7 +109,7 @@ Jupyter Notebookインスタンスに直接SSH接続をしたい場合は、公�
   - 各ゲートウェイサーバ間でホームディレクトリは同期しませんのでご注意ください
   
 が必要になります。具体的な手順等についてはインターネット上の各種ドキュメントを参考にしてください。\
-(参考: https://help.github.com/ja/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent )
+(参考: [GitHub公式ドキュメント](https://help.github.com/ja/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) )
 
 実際に接続する際には、まず
 
