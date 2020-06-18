@@ -108,8 +108,7 @@ Jupyter Notebookインスタンスに直接SSH接続をしたい場合は、公�
   - これを行うことでゲートウェイコンテナでも公開鍵認証でSSH接続できるようになります
   - 各ゲートウェイサーバ間でホームディレクトリは同期しませんのでご注意ください
   
-が必要になります。具体的な手順等についてはインターネット上の各種ドキュメントを参考にしてください。\
-(参考: [GitHub公式ドキュメント](https://help.github.com/ja/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) )
+が必要になります。具体的な手順等についてはインターネット上の各種ドキュメントを参考にしてください。(参考: [GitHub公式ドキュメント](https://help.github.com/ja/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) )
 
 実際に接続する際には、まず
 
@@ -117,7 +116,8 @@ Jupyter Notebookインスタンスに直接SSH接続をしたい場合は、公�
 ssh -p 2221 -A [ユーザ名]@[ゲートウェイサーバ].ai.hc.keio.ac.jp
 ```
 
-でゲートウェイサーバにSSH接続します。\
+でゲートウェイサーバにSSH接続します。
+
 `-A`はagent forwardingを行うオプションです。OpenSSH以外の各種SSHクライアントソフトウェアを使用する場合は`Forward agent`オプションを有効にしてください。
 
 次に
