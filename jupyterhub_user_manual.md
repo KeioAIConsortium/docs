@@ -11,7 +11,7 @@ JupyterHubへのアクセスはLDAP認証を用いているため、まずLDAP�
 
 SSH接続では
 
-- WIndows 10の場合: コマンドプロンプトまたはPowerShellでOpenSSHが使用できます。
+- Wndows 10の場合: コマンドプロンプトまたはPowerShellでOpenSSHが使用できます。
   - [こちら](https://docs.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_install_firstuse)に記載されている手順に従ってOpenSSHクライアントをインストールする必要があります。
 -  Windows 10以前の場合: Tera TermやPuTTY等のSSHクライアントソフトウェアを使用してください。
 - Mac OS X / Linuxの場合: ターミナル上でOpenSSHが使用できます。
