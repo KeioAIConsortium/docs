@@ -13,7 +13,7 @@ SSH接続では
 
 - Windows 10の場合: コマンドプロンプトまたはPowerShellでOpenSSHが使用できます。
   - [こちら](https://docs.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_install_firstuse)に記載されている手順に従ってOpenSSHクライアントをインストールする必要があります。
--  Windows 10以前の場合: Tera TermやPuTTY等のSSHクライアントソフトウェアを使用してください。
+- Windows 10以前の場合: Tera TermやPuTTY等のSSHクライアントソフトウェアを使用してください。
 - macOS (OS X) / Linuxの場合: ターミナル上でOpenSSHが使用できます。
 
 OpenSSH以外の各種SSHクライアントソフトウェアを使用する場合は、それぞれのドキュメントを参考にしてください。個別のソフトウェアに対するサポートは致しかねます。ご了承ください。
@@ -89,7 +89,7 @@ Jupyter Notebookインスタンスの利用の上で、TensorBoardの利用や�
 ssh -p 2221 -L 8000:jupyterhub-singleuser-instance-[ユーザ名].lxd:8000 [ユーザ名]@[ゲートウェイサーバ].ai.hc.keio.ac.jp
 ```
 
-この時、ユーザ名とゲートウェイサーバは[アクセス手順](##アクセス手順)と同様に設定します。すると、SSHが接続されている限り`locahost:8000`へのアクセスは透過的にJupyter Notebookインスタンスの8000番ポートに転送されるようになります。
+この時、ユーザ名とゲートウェイサーバは[アクセス手順](#アクセス手順)と同様に設定します。すると、SSHが接続されている限り`locahost:8000`へのアクセスは透過的にJupyter Notebookインスタンスの8000番ポートに転送されるようになります。
 
 ### Jupyter NotebookインスタンスへのSSHアクセスの仕方
 
