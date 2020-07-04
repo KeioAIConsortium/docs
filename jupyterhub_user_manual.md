@@ -50,15 +50,24 @@ condaやpipのパッケージを入れようとしても、そのままではJup
 ターミナルで次のコマンドを実行し、自分用のcondaのenvironmentの作成し、Jupyter Notebookが認識するようにインストールします。今回は`custom-env`という名前で作成しますが、好きな名前で作ることもできます。
 
 ```sh
-conda create -n custom-env --clone base
+conda create -n custom-env --clone jupyterhub-env
 conda activate custom-env
-conda install anaconda
 ipython kernel install --user --name custom-env
 ```
 
 新しく作ったenvironmentには`conda install [パッケージ名]`で自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
 
 ![](./images/jupyter-select-env.png)
+
+上で作成した`custom-env`を削除したい場合にはTernimalで以下を実行します。
+
+```sh
+conda activate base # base environmentに切替
+conda remove -n custom-env --all # custom-env envrionmentを削除
+jupyter kernelspec uninstall custom-env # Jupyter Notebookの起動時の選択肢からcustom-envを削除
+```
+
+なお、`base`と`jupyterhub-env`のenvironmentは削除しないでください。削除してしまうとJupyter Notebookインスタンスが正常に動作しなくなる可能性があります。
 
 参考: <https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html>
 
@@ -69,6 +78,7 @@ GPUドライバやCUDAは既にインストールされた状態になってい�
 
 ```
 conda activate custom-env
+conda install matplotlib
 conda install tensorflow-gpu
 wget 'https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb' # Tensorflowのチュートリアル用ipynbファイル
 ```
