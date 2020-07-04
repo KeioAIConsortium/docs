@@ -3,9 +3,6 @@
 
 不明点・要望・トラブル等については `hai-help-group@keio.jp` までご連絡ください。
 
-## スペック
-JupyterHubでは利用者1人当たり1台GeForce RTX 2080 TiのGPUが割り当てられ、CPUやメモリは他の利用者と共有されています。この先、利用者数に応じてGPU・CPU・メモリ・ストレージ等の制約を設ける可能性があります。ご了承下さい。
-
 ## 申請
 JupyterHubへのアクセスはLDAP認証を用いているため、まずLDAPアカウントの作成が必要です。[ホームページ](https://aic.keio.ac.jp/events/jupyterhub)から申請を行ってください。申請が通り次第、ユーザ名・パスワードが送付されます。
 
@@ -50,7 +47,7 @@ condaやpipのパッケージを入れようとしても、そのままではJup
 ターミナルで次のコマンドを実行し、自分用のcondaのenvironmentの作成し、Jupyter Notebookが認識するようにインストールします。今回は`custom-env`という名前で作成しますが、好きな名前で作ることもできます。
 
 ```sh
-conda create -n custom-env --clone base
+conda create -n custom-env --clone jupyterhub-env
 conda activate custom-env
 conda install anaconda
 ipython kernel install --user --name custom-env
@@ -59,6 +56,16 @@ ipython kernel install --user --name custom-env
 新しく作ったenvironmentには`conda install [パッケージ名]`で自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
 
 ![](./images/jupyter-select-env.png)
+
+上で作成した`custom-env`を削除したい場合にはTernimalで以下を実行します。
+
+```sh
+conda activate base # base environmentに切替
+conda remove -n custom-env --all # custom-env envrionmentを削除
+jupyter kernelspec uninstall custom-env # Jupyter Notebookの起動時の選択肢からcustom-envを削除
+```
+
+なお、`base`と`jupyterhub-env`のenvironmentは削除しないでください。削除してしまうとJupyter Notebookインスタンスが正常に動作しなくなる可能性があります。
 
 参考: <https://zonca.github.io/2017/02/customize-python-environment-jupyterhub.html>
 
@@ -128,7 +135,7 @@ ssh ubuntu@jupyterhub-singleuser-instance-[ユーザ名].lxd
 
 を実行することで、JupyterHub上のターミナルを使わなくてもご自身のPCのターミナルから直接コマンドが実行できるようになります。
 
-## CUDAバージョンの変更について
+## CUDAバージョンの変更について共有
 使用するライブラリやソフトウェアによっては、インストールされているCUDAバージョンに対応していない場合があります。本サービスでは、ユーザ自身によるCUDAのバージョン変更に対応しています。
 
 ただしCUDAのバージョン変更は**Jupyter Notebookインスタンスのバージョンによって手順が異なります**。
@@ -172,6 +179,25 @@ sudo apt install --yes cuda-toolkit-11-0
 ```
 sudo apt search ^cuda-toolkit
 ```
+
+## 制約等
+
+### リソース
+
+現在、各ユーザには
+
+- CPU: 仮想2コア (共有)
+- メモリ: 8GB (共有)
+- ストレージ: 100GB
+- GPU: RTX 2080 Ti x 1
+
+が割り当てられています。GPUの利用を主な用途として想定しており，CPUを酷使する用途は想定しておりません。
+
+利用者数に応じて、将来的にGPU・CPU・メモリ・ストレージ等の制約を設ける可能性があります。ご了承ください。
+
+### Dockerコンテナの利用について
+
+現在、慶應JupyterHubではDockerコンテナの利用ができません。これは技術的な制約によるものです。
 
 ## 注意事項
 ### セキュリティについて
