@@ -49,6 +49,7 @@ condaやpipのパッケージを入れようとしても、そのままではJup
 ```sh
 conda create -n custom-env --clone jupyterhub-env
 conda activate custom-env
+conda install anaconda
 ipython kernel install --user --name custom-env
 ```
 
@@ -75,7 +76,6 @@ GPUドライバやCUDAは既にインストールされた状態になってい�
 
 ```
 conda activate custom-env
-conda install matplotlib
 conda install tensorflow-gpu
 wget 'https://raw.githubusercontent.com/tensorflow/docs/master/site/en/tutorials/keras/classification.ipynb' # Tensorflowのチュートリアル用ipynbファイル
 ```
