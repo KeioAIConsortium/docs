@@ -47,11 +47,15 @@ condaやpipのパッケージを入れようとしても、そのままではJup
 ターミナルで次のコマンドを実行し、自分用のcondaのenvironmentの作成し、Jupyter Notebookが認識するようにインストールします。今回は`custom-env`という名前で作成しますが、好きな名前で作ることもできます。
 
 ```sh
-conda create -n custom-env --clone jupyterhub-env
+conda create -n custom-env --clone base
 conda activate custom-env
 conda install anaconda
 ipython kernel install --user --name custom-env
 ```
+
+上のように、`base`をベースのenvironmentとして使用する場合は必ず`conda install anaconda`を実行してください。`ipython`パッケージを単体でインストールすると`ipython kernel`がうまく動かないことがあります。
+
+また、ベースとなるenvironmentには`base`の他に`jupyterhub-env`も使えます。この場合は`anaconda`パッケージのインストールは必須ではありませんが、他のパッケージをインストールする際に依存関係の解決で非常に時間がかかることがあります。基本的には`base`を使用することを推奨します。
 
 新しく作ったenvironmentには`conda install [パッケージ名]`で自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
 
