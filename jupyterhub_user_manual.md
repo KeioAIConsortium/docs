@@ -199,6 +199,23 @@ sudo apt search ^cuda-toolkit
 
 利用者数に応じて、将来的にGPU・CPU・メモリ・ストレージ等の制約を設ける可能性があります。ご了承ください。
 
+### ユーザ環境のシャットダウンのタイミング
+
+各ユーザのJupyter Notebookインスタンスは、webコンソールからログアウトした際に停止されるようになっています。また、何も処理を行っていないインスタンスも一定時間経過後に自動的に停止されます。
+
+webコンソールを表示していないときもインスタンスで処理を続行させたい場合は、ログアウトせずにウィンドウを閉じるようにしてください。
+
+ipynbファイルを実行している状態でウィンドウを閉じると、処理が中断されてしまうことがあります。この問題はTerminalで`nbconvert`を使って実行することで回避できます。以下はコマンドの例です。
+
+```sh
+jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=-1 --execute [ipynbファイル名].ipynb
+# 同じディレクトリ内の[ipynbファイル名].nbconvert.ipynbに出力されます
+```
+
+nbconvertについては公式のドキュメントを参照してください。
+
+参考: <https://nbconvert.readthedocs.io/en/latest/>
+
 ### Dockerコンテナの利用について
 
 現在、慶應JupyterHubではDockerコンテナの利用ができません。これは技術的な制約によるものです。
