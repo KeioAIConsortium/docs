@@ -90,6 +90,20 @@ JupyterHubのアイコンをクリックしファイル一覧に戻り、新し�
 
 最後に、１つ１つのセルを実行すればチュートリアルに沿って実行を進めることができます。
 
+
+## データのバックアップについて
+
+JupyterHub上で使用しているデータ等については、ご自身でのバックアップをお願いいたします。
+バックアップ方法としては
+
+- sftp, rsync等でご自身のPCにバックアップをとる
+- rclone等のツールを使ってクラウドストレージ上にバックアップをとる
+
+といった方法があります。
+keio.jpのアカウントではGoogle Driveが容量無制限で使えるため、rcloneでご自身のGoogle Driveと連携してしまうのが最も手っ取り早いと思われます。
+rcloneの詳細については、[公式ドキュメント](https://rclone.org/)をご覧ください。
+（個別のツールについての質問はお答えできません。ご了承ください。）
+
 ## JupyterHubインスタンスに直接アクセスしたい場合
 
 ここでは、JupyterHubのWebインターフェイスを介さず、ご自身のインスタンスに直接アクセスする方法を説明します。
@@ -139,7 +153,7 @@ ssh ubuntu@jupyterhub-singleuser-instance-[ユーザ名].lxd
 
 を実行することで、JupyterHub上のターミナルを使わなくてもご自身のPCのターミナルから直接コマンドが実行できるようになります。
 
-## CUDAバージョンの変更について共有
+## CUDAバージョンの変更について
 使用するライブラリやソフトウェアによっては、インストールされているCUDAバージョンに対応していない場合があります。本サービスでは、ユーザ自身によるCUDAのバージョン変更に対応しています。
 
 ただしCUDAのバージョン変更は**Jupyter Notebookインスタンスのバージョンによって手順が異なります**。
@@ -170,12 +184,12 @@ WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
 apt list --installed | grep ^cuda-toolkit
 ```
 
-例えば、CUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、CUDA 11.0にアップグレードしたいとします。その場合、次のように一旦現在のCUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
+例えば、CUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、CUDA 10.2にアップグレードしたいとします。その場合、次のように一旦現在のCUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
 
 ```
 sudo apt remove --purge --yes cuda-toolkit-10-1
 sudo apt autoremove --purge --yes
-sudo apt install --yes cuda-toolkit-11-0
+sudo apt install --yes cuda-toolkit-10-2
 ```
 
 なお、インストールが可能なCUDAバージョンの一覧は次のコマンドで確認することができます。
@@ -183,6 +197,8 @@ sudo apt install --yes cuda-toolkit-11-0
 ```
 sudo apt search ^cuda-toolkit
 ```
+
+必ず`cuda-toolkit`パッケージをインストールするようにしてください。`cuda`パッケージのインストールは実行すると失敗し、`apt`パッケージマネージャでは修復ができなくなります。
 
 ## 制約等
 
@@ -195,7 +211,7 @@ sudo apt search ^cuda-toolkit
 - ストレージ: 100GB
 - GPU: RTX 2080 Ti x 1
 
-が割り当てられています。GPUの利用を主な用途として想定しており，CPUを酷使する用途は想定しておりません。
+が割り当てられています。GPUの利用を主な用途として想定しており、CPUを酷使する用途は想定しておりません。
 
 利用者数に応じて、将来的にGPU・CPU・メモリ・ストレージ等の制約を設ける可能性があります。ご了承ください。
 
