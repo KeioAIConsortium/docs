@@ -47,11 +47,15 @@ condaやpipのパッケージを入れようとしても、そのままではJup
 ターミナルで次のコマンドを実行し、自分用のcondaのenvironmentの作成し、Jupyter Notebookが認識するようにインストールします。今回は`custom-env`という名前で作成しますが、好きな名前で作ることもできます。
 
 ```sh
-conda create -n custom-env --clone jupyterhub-env
+conda create -n custom-env --clone base
 conda activate custom-env
 conda install anaconda
 ipython kernel install --user --name custom-env
 ```
+
+上のように、`base`をベースのenvironmentとして使用する場合は必ず`conda install anaconda`を実行してください。`ipython`パッケージを単体でインストールすると`ipython kernel`がうまく動かないことがあります。
+
+また、ベースとなるenvironmentには`base`の他に`jupyterhub-env`も使えます。この場合は`anaconda`パッケージのインストールは必須ではありませんが、他のパッケージをインストールする際に依存関係の解決で非常に時間がかかることがあります。基本的には`base`を使用することを推奨します。
 
 新しく作ったenvironmentには`conda install [パッケージ名]`で自由にパッケージをインストールすることができ、Jupyter Notebookを起動するタイミングで以下のようにcustom-envを選択すればインストールしたパッケージを利用することができます。
 
@@ -85,6 +89,20 @@ JupyterHubのアイコンをクリックしファイル一覧に戻り、新し�
 ![](./images/jupyter-change-kernel.png)
 
 最後に、１つ１つのセルを実行すればチュートリアルに沿って実行を進めることができます。
+
+
+## データのバックアップについて
+
+JupyterHub上で使用しているデータ等については、ご自身でのバックアップをお願いいたします。
+バックアップ方法としては
+
+- sftp, rsync等でご自身のPCにバックアップをとる
+- rclone等のツールを使ってクラウドストレージ上にバックアップをとる
+
+といった方法があります。
+keio.jpのアカウントではGoogle Driveが容量無制限で使えるため、rcloneでご自身のGoogle Driveと連携してしまうのが最も手っ取り早いと思われます。
+rcloneの詳細については、[公式ドキュメント](https://rclone.org/)をご覧ください。
+（個別のツールについての質問はお答えできません。ご了承ください。）
 
 ## JupyterHubインスタンスに直接アクセスしたい場合
 
@@ -135,7 +153,7 @@ ssh ubuntu@jupyterhub-singleuser-instance-[ユーザ名].lxd
 
 を実行することで、JupyterHub上のターミナルを使わなくてもご自身のPCのターミナルから直接コマンドが実行できるようになります。
 
-## CUDAバージョンの変更について共有
+## CUDAバージョンの変更について
 使用するライブラリやソフトウェアによっては、インストールされているCUDAバージョンに対応していない場合があります。本サービスでは、ユーザ自身によるCUDAのバージョン変更に対応しています。
 
 ただしCUDAのバージョン変更は**Jupyter Notebookインスタンスのバージョンによって手順が異なります**。
@@ -166,12 +184,12 @@ WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
 apt list --installed | grep ^cuda-toolkit
 ```
 
-例えば、CUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、CUDA 11.0にアップグレードしたいとします。その場合、次のように一旦現在のCUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
+例えば、CUDA 10.1（`cuda-toolkit-10-1`）がインストールされており、CUDA 10.2にアップグレードしたいとします。その場合、次のように一旦現在のCUDAツールキットを削除した後に新たなCUDAツールキットをインストールします。
 
 ```
 sudo apt remove --purge --yes cuda-toolkit-10-1
 sudo apt autoremove --purge --yes
-sudo apt install --yes cuda-toolkit-11-0
+sudo apt install --yes cuda-toolkit-10-2
 ```
 
 なお、インストールが可能なCUDAバージョンの一覧は次のコマンドで確認することができます。
@@ -179,6 +197,8 @@ sudo apt install --yes cuda-toolkit-11-0
 ```
 sudo apt search ^cuda-toolkit
 ```
+
+必ず`cuda-toolkit`パッケージをインストールするようにしてください。`cuda`パッケージのインストールは実行すると失敗し、`apt`パッケージマネージャでは修復ができなくなります。
 
 ## 制約等
 
@@ -191,9 +211,26 @@ sudo apt search ^cuda-toolkit
 - ストレージ: 100GB
 - GPU: RTX 2080 Ti x 1
 
-が割り当てられています。GPUの利用を主な用途として想定しており，CPUを酷使する用途は想定しておりません。
+が割り当てられています。GPUの利用を主な用途として想定しており、CPUを酷使する用途は想定しておりません。
 
 利用者数に応じて、将来的にGPU・CPU・メモリ・ストレージ等の制約を設ける可能性があります。ご了承ください。
+
+### ユーザ環境のシャットダウンのタイミング
+
+各ユーザのJupyter Notebookインスタンスは、webコンソールからログアウトした際に停止されるようになっています。また、何も処理を行っていないインスタンスも一定時間経過後に自動的に停止されます。
+
+webコンソールを表示していないときもインスタンスで処理を続行させたい場合は、ログアウトせずにウィンドウを閉じるようにしてください。
+
+ipynbファイルを実行している状態でウィンドウを閉じると、処理が中断されてしまうことがあります。この問題はTerminalで`nbconvert`を使って実行することで回避できます。以下はコマンドの例です。
+
+```sh
+jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=-1 --execute [ipynbファイル名].ipynb
+# 同じディレクトリ内の[ipynbファイル名].nbconvert.ipynbに出力されます
+```
+
+nbconvertについては公式のドキュメントを参照してください。
+
+参考: <https://nbconvert.readthedocs.io/en/latest/>
 
 ### Dockerコンテナの利用について
 
