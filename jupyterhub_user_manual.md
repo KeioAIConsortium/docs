@@ -211,24 +211,31 @@ sudo apt search ^cuda-toolkit
 - ストレージ: 100GB
 - GPU: RTX 2080 Ti x 1
 
-が割り当てられています。GPUの利用を主な用途として想定しており、CPUを酷使する用途は想定しておりません。
+が割り当てられています。GPUの利用を主な用途として想定しており、CPU・メモリを酷使する用途は想定しておりません。
 
 利用者数に応じて、将来的にGPU・CPU・メモリ・ストレージ等の制約を設ける可能性があります。ご了承ください。
 
 ### ユーザ環境のシャットダウンのタイミング
 
-各ユーザのJupyter Notebookインスタンスは、webコンソールからログアウトした際に停止されるようになっています。また、何も処理を行っていないインスタンスも一定時間経過後に自動的に停止されます。
+各ユーザのJupyter Notebookインスタンスは
 
-webコンソールを表示していないときもインスタンスで処理を続行させたい場合は、ログアウトせずにウィンドウを閉じるようにしてください。
+- Logoutボタンをクリックしてwebコンソールからログアウトした場合
+- Control PanelからStop My Serverをクリックした場合
+- 一定時間フォアグラウンドで何も処理を行っていない場合
 
-ipynbファイルを実行している状態でウィンドウを閉じると、処理が中断されてしまうことがあります。この問題はTerminalで`nbconvert`を使って実行することで回避できます。以下はコマンドの例です。
+に自動的に停止されます。
+
+webコンソールを表示していないときもインスタンスで処理を続行させたい場合は、該当の処理を**フォアグラウンド**で実行し**Logoutボタンを押さず**にウィンドウを閉じるようにしてください。バックグラウンドで実行すると、実行中の処理がないと判断されインスタンスが停止されますのでご注意ください。
+
+ipynbファイルを実行している状態で該当のウィンドウを閉じると処理が中断されてしまうことがあります。この問題はTerminalで`nbconvert`を使ってipynbファイルを実行することで回避できます。以下はコマンドの例です。
 
 ```sh
-jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=-1 --execute [ipynbファイル名].ipynb
-# 同じディレクトリ内の[ipynbファイル名].nbconvert.ipynbに出力されます
+# example.ipynbを実行したい場合
+jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=-1 --execute example.ipynb
+# 同じディレクトリ内のexample.nbconvert.ipynbに出力されます
 ```
 
-nbconvertについては公式のドキュメントを参照してください。
+nbconvertのオプション等については公式のドキュメントを参照してください。
 
 参考: <https://nbconvert.readthedocs.io/en/latest/>
 
