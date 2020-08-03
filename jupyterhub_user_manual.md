@@ -128,7 +128,7 @@ Jupyter Notebookインスタンスに直接SSH接続をしたい場合は、公�
 - SSHキーペアの生成
 - 接続元の端末での`ssh-agent`の起動、SSHキーペアの登録
 - Jupyter NotebookインスタンスへのSSH公開鍵の登録
-  - `~/.ssh/autorized_keys`に書き込む、`ssh-import-id-gh [GitHubユーザ名]`でインポートする等
+  - `~/.ssh/authorized_keys`に書き込む、`ssh-import-id-gh [GitHubユーザ名]`でインポートする等
 - (任意) ゲートウェイサーバへのSSH公開鍵の登録
   - これを行うことでゲートウェイコンテナでも公開鍵認証でSSH接続できるようになります
   - 各ゲートウェイサーバ間でホームディレクトリは同期しませんのでご注意ください
