@@ -126,7 +126,7 @@ Jupyter Notebookインスタンスの利用の上で、TensorBoardの利用や�
 ssh -p 2221 -L 8000:jupyterhub-singleuser-instance-[ユーザ名].lxd:8000 [ユーザ名]@[ゲートウェイサーバ].ai.hc.keio.ac.jp
 ```
 
-この時、ユーザ名とゲートウェイサーバは[アクセス手順](#アクセス手順)と同様に設定します。すると、SSHが接続されている限り`locahost:8000`へのアクセスは透過的にJupyter Notebookインスタンスの8000番ポートに転送されるようになります。
+この時、ユーザ名とゲートウェイサーバは[アクセス手順](#2-ssh経由で変更する場合)と同様に設定します。すると、SSH接続が維持されている限り`locahost:8000`へのアクセスは透過的にJupyter Notebookインスタンスの8000番ポートに転送されるようになります。
 
 ### Jupyter NotebookインスタンスへのSSHアクセスの仕方
 
