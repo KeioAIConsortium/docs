@@ -2,7 +2,7 @@
 
 このマニュアルは AI コンソーシアムの JupyterHub サービスの利用者のためのマニュアルです。
 
-不明点・要望・トラブル等については `hai-help-group@keio.jp` までご連絡ください。
+不明点・要望・トラブル等については `aic-server-group@keio.jp` までご連絡ください。
 
 ## 申請
 
@@ -181,7 +181,7 @@ ssh ubuntu@jupyterhub-singleuser-instance-[ユーザ名].lxd
 apt list --installed | grep cuda-repo
 ```
 
-もし、次のような出力が得られた場合はサーバ管理者による対応が必要となるため、お手数ですが `hai-help-group@keio.jp` までご連絡ください:
+もし、次のような出力が得られた場合はサーバ管理者による対応が必要となるため、お手数ですが `aic-server-group@keio.jp` までご連絡ください:
 
 ```
 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
@@ -280,7 +280,7 @@ JupyterHub はパスワード認証となっており、インターネットの
 
 1. 本サービス対象者
 
-- こちらは学生向けのサービスです。教職員の方のご利用については hai-help-group@keio.jp までご相談ください。
+- こちらは学生向けのサービスです。教職員の方のご利用については aic-server-group@keio.jp までご相談ください。
 - 原則として個人の学習目的での利用に限ります。研究室等の集団での利用はお控えください。
 
 2.  禁止事項
