@@ -115,7 +115,7 @@ JupyterHub 上で使用しているデータ等については、ご自身での
 - rclone 等のツールを使ってクラウドストレージ上にバックアップをとる
 
 といった方法があります。
-keio.jp のアカウントでは Google Drive が容量無制限で使えるため、rclone でご自身の Google Drive と連携してしまうのが最も手っ取り早いと思われます。
+keio.jp のアカウントでは Box が容量無制限で使えるため、rclone でご自身の Box と連携してしまうのが最も手っ取り早いと思われます。
 rclone の詳細については、[公式ドキュメント](https://rclone.org/)をご覧ください。
 （個別のツールについての質問はお答えできません。ご了承ください。）
 
@@ -149,7 +149,7 @@ Jupyter Notebook インスタンスに直接 SSH 接続をしたい場合は、�
   - これを行うことでゲートウェイコンテナでも公開鍵認証で SSH 接続できるようになります
   - 各ゲートウェイサーバ間でホームディレクトリは同期しませんのでご注意ください
 
-が必要になります。具体的な手順等についてはインターネット上の各種ドキュメントを参考にしてください。(参考: [GitHub 公式ドキュメント](https://help.github.com/ja/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) )
+が必要になります。具体的な手順等についてはインターネット上の各種ドキュメントを参考にしてください。(参考: [GitHub 公式ドキュメント](https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) )
 
 実際に接続する際には、まず
 
