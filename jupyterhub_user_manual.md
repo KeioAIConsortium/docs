@@ -51,6 +51,11 @@ SSH クライアントソフトウェアを使用する場合は、接続先の�
 ログインが完了するとパスワードを変更するよう促されるので、パスワードを変更します。
 再び同じ場所に SSH 接続を行い、正常にログインができれば設定は完了です。
 
+**こちらのゲートウェイサーバでは作業をしないでください．**
+セキュリティのためリソースを厳しく制限しており、大容量のデータ保存や重いワークロードの実行があるとサーバがダウンするようになっています。これはパスワードの漏れ等により万が一侵入された場合を考慮しての措置です。作業は各個人の JupyterHub インスタンス内で行っていただくようお願いします。
+
+また Visual Studio Code (以下 VSCode) の Remote SSH 拡張機能を使ってのアクセスも、大容量のアプリケーションがサーバ側に保存されてしまうためご遠慮ください。JupyterHub インスタンスに直接アクセスしていただく上でご利用されるのは問題ありません。JupyterHub インスタンスへ直接 SSH を行う方法については[こちら](#jupyter-notebook-インスタンスへの-ssh-アクセスの仕方)で案内します。
+
 ## カスタムパッケージ追加の方法
 
 conda や pip のパッケージを入れようとしても、そのままでは JupyterHub から利用できる状態にはなりません。そこで、次のようにすると conda や pip で独自のパッケージを自由にインストールできるようになります。まずは、JupyterHub にログインし、「New」→「Terminal」をクリックしターミナルを起動します。
@@ -133,7 +138,7 @@ Jupyter Notebook インスタンスの利用の上で、TensorBoard の利用や
 ssh -p 2221 -L 8000:jupyterhub-singleuser-instance-[ユーザ名].lxd:8000 [ユーザ名]@[ゲートウェイサーバ].ai.hc.keio.ac.jp
 ```
 
-この時、ユーザ名とゲートウェイサーバは[アクセス手順](#2-ssh経由で変更する場合)と同様に設定します。すると、SSH 接続が維持されている限り`locahost:8000`へのアクセスは透過的に Jupyter Notebook インスタンスの 8000 番ポートに転送されるようになります。
+この時、ユーザ名とゲートウェイサーバは[アクセス手順](#2-ssh-経由で変更する場合)と同様に設定します。すると、SSH 接続が維持されている限り`locahost:8000`へのアクセスは透過的に Jupyter Notebook インスタンスの 8000 番ポートに転送されるようになります。
 
 ### Jupyter Notebook インスタンスへの SSH アクセスの仕方
 
@@ -168,6 +173,26 @@ ssh ubuntu@jupyterhub-singleuser-instance-[ユーザ名].lxd
 ```
 
 を実行することで、JupyterHub 上のターミナルを使わなくてもご自身の PC のターミナルから直接コマンドが実行できるようになります。
+
+以下のような設定をご自身の PC の `~/.ssh/config` に設定しておくと、上記の内容と同じ接続手順が接続元のターミナルで `ssh jupyterhub` と入力するだけで行えるようになりスムーズです。 
+
+```
+Host gateway
+    HostName [ゲートウェイサーバ].ai.hc.keio.ac.jp
+    User [ユーザ名]
+    Port 2221
+    IdentityFile [秘密鍵のファイルパス（例: ~/.ssh/id_ed25519）]
+    IdentitiesOnly yes
+    ForwardAgent yes
+
+Host jupyterhub
+    HostName jupyterhub-singleuser-instance-[ユーザ名].lxd
+    User ubuntu
+    Port 22
+    ProxyJump gateway
+```
+
+この設定を使えば、VSCode の Remote SSH を利用して JupyterHub インスタンスに直接接続することも可能になります。このとき、ゲートウェイサーバを経由する関係で接続には通常よりも時間がかかりますので、VSCode側 の設定で`remote.SSH.connectTimeout`を長めにとっていただくことをおすすめします。
 
 ## CUDA バージョンの変更について
 
