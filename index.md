@@ -5,3 +5,4 @@
 ## Links
 - [ユーザマニュアル](./user_manual)
 - [JupyterHubユーザマニュアル](./jupyterhub_user_manual)
+- [コミュニティ規約](./community_rules)
