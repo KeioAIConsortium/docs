@@ -6,7 +6,7 @@
 
 ## 申請
 
-JupyterHub へのアクセスは LDAP 認証を用いているため、まず LDAP アカウントの作成が必要です。[ホームページ](https://aic.keio.ac.jp/events/jupyterhub)から申請を行ってください。申請が通り次第、ユーザ名・パスワードが送付されます。
+JupyterHub へのアクセスは LDAP 認証を用いているため、まず LDAP アカウントの作成が必要です。[こちらのフォーム](https://docs.google.com/forms/d/e/1FAIpQLSfW2YxBEQCHYbY0waX_9uoCrdMjyDS809o1jTKldmUjH-J2mQ/viewform)から申請を行ってください。申請が通り次第、ユーザ名・パスワードが送付されます。
 
 ユーザ名・パスワードの送付までは 2 日程度かかることがあります。あらかじめご了承ください。
 
