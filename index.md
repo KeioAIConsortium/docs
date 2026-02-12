@@ -7,3 +7,4 @@
 - [JupyterHubユーザマニュアル](./jupyterhub_user_manual)
 - [コミュニティ規約](./community_rules)
 - [Slurmユーザマニュアル](./slurm_user_manual)
+- [LLM Gatewayユーザマニュアル](./llmgateway_user_manual)
