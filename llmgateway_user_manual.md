@@ -28,6 +28,7 @@ LLM Gateway のご利用には、事前に利用登録と API キーの発行が
 
 `~/.continue/config.yaml` に、以下の内容で LLM Gateway 用のモデル設定を追加してください。
 
+{% raw %}
 ```yaml
 name: keioaic-litellm
 version: 1.0.0
@@ -62,7 +63,7 @@ KEIOAIC_LLM_API_KEY=<ここに発行されたAPIキーを貼り付け>
 2. モデルで `gpt-oss-120b` を選びます
 3. チャット欄に依頼を入力して利用します
 
-## Continue CLI（`cn`）をご利用の場合
+## Continue CLI をご利用の場合
 
 ### インストール
 
