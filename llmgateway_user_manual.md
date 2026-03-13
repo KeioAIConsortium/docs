@@ -15,96 +15,98 @@ LLM Gateway のご利用には、事前に利用登録と API キーの発行が
 このプロジェクトでは、OpenAI 互換の API を提供しています。
 基本的には、OpenAI 互換の API に対応したツールからであれば利用できますが、完全な互換ではないため、一部のツールでは動作しない場合があります。
 
-以下では、Continue（VS Code 拡張および CLI）を利用する手順を説明します。
+以下では、VS Code 拡張として Cline、CLI として OpenCode を利用する手順を説明します。
 
-## Continue（VS Code拡張）をご利用の場合
+## Cline（VS Code拡張）をご利用の場合
 
 ### インストール
 
 1. VS Code の拡張機能を開きます
-2. `Continue` を検索してインストールします
+2. `Cline` を検索してインストールします
 
-### 設定ファイル
+### 設定
 
-`~/.continue/config.yaml` に、以下の内容で LLM Gateway 用のモデル設定を追加してください。
+![cline 設定画面](images/llmgateway-cline.png)
 
-{% raw %}
-```yaml
-name: keioaic-litellm
-version: 1.0.0
-schema: v1
+`Bring my own API key` を選択して、`Continue` をクリックします。
 
-models:
-  - name: gpt-oss-120b
-    provider: openai
-    apiBase: https://llm-gateway.keioaic.dev/v1
-    apiKey: ${{ secrets.KEIOAIC_LLM_API_KEY }}
-    model: gpt-oss-120b
-    roles:
-      - chat
-      - edit
-      - apply
-      - autocomplete
-```
-{% endraw %}
+Cline の設定画面を開き、以下の内容で LLM Gateway 用の接続情報を設定してください。
 
-### APIキーを設定
+| 項目 | 値 |
+| --- | --- |
+| API Provider | `LiteLLM` |
+| Base URL | `https://llm-gateway.keioaic.dev/v1` |
+| API Key | 発行された API キー |
+| Model ID | `gpt-oss-120b` |
 
-`~/.continue/.env` に、以下の内容で API キーを設定してください。
-
-```dotenv
-KEIOAIC_LLM_API_KEY=<ここに発行されたAPIキーを貼り付け>
-```
-
-※ ファイル保存後は VS Code / CLI を再起動してください。
+※ Model ID として，`openai/gpt-oss-120b` ではなく，`gpt-oss-120b` を指定する点にご注意ください。
 
 ### 使い方
 
-1. Continue サイドバーを開きます
+1. Cline サイドバーを開きます
 2. モデルで `gpt-oss-120b` を選びます
 3. チャット欄に依頼を入力して利用します
 
-## Continue CLI をご利用の場合
+※ 使用料が表示されることがありますが，AIC の LLM Gateway を利用する場合は料金は発生していませんのでご安心ください。
+
+## OpenCode（CLI）をご利用の場合
 
 ### インストール
 
+以下のいずれかのコマンドを実行して OpenCode をインストールしてください。
+
 ```bash
 # macOS / Linux
-curl -fsSL https://raw.githubusercontent.com/continuedev/continue/main/extensions/cli/scripts/install.sh | bash
+curl -fsSL https://opencode.ai/install | bash
 
 # Node.js 20+ がインストールされている場合
-npm i -g @continuedev/cli
+npm install -g opencode-ai
 ```
+
+### 設定ファイル
+
+OpenCode は `~/.config/opencode/opencode.json` またはプロジェクト直下の `opencode.json` を読み込みます。
+以下の内容で設定ファイルを作成してください。
+
+{% raw %}
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "litellm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LiteLLM",
+      "options": {
+        "baseURL": "https://llm-gateway.keioaic.dev/v1",
+        "apiKey": "発行された API キー"
+      },
+      "models": {
+        "gpt-oss-120b": {
+          "name": "gpt-oss-120b",
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          }
+        }
+      }
+    }
+  },
+  "model": "litellm/gpt-oss-120b"
+}
+```
+{% endraw %}
 
 ### 起動方法
 
-`cn` は VS Code拡張 と同じ設定ファイル・環境変数を利用します。
-上記のVS Code拡張を利用する場合と同様に設定ファイル・環境変数を準備した上で、以下のコマンドで起動します。
-
-Continue CLI を利用するには、デフォルトでは Continue アカウントが必要ですが、LLM Gateway のみを利用する場合はアカウント不要で利用できます。
-
-`.continue/config.yaml` を読み込ませるために、シェルの初期化ファイル（例: `~/.bashrc`, `~/.zshrc`）に以下を追加してください。
+以下のコマンドで OpenCode を起動できます。
 
 ```bash
-alias cn='cn --config ~/.continue/config.yaml'
+opencode
 ```
-
-シェルを再起動した後、以下のコマンドで Continue CLI を起動することができます。
-
-```bash
-cn
-```
-
-## よくあるトラブル
-
-### APIキーエラーになる場合
-
-- `~/.continue/.env` の変数名が `KEIOAIC_LLM_API_KEY` になっているかご確認ください
-- 値に引用符（`"`）や余分な空白が入っていないかご確認ください
-- VS Code / `cn` を再起動してください
 
 ## 参考リンク
 
-- Continue VS Code: https://docs.continue.dev/install/vscode
-- Continue CLI 導入: https://docs.continue.dev/cli/install
-- Continue CLI の使い方: https://docs.continue.dev/guides/cli
+- Cline OpenAI Compatible: https://docs.cline.bot/provider-config/openai-compatible
+- OpenCode 導入: https://opencode.ai/docs/
+- OpenCode Config: https://opencode.ai/docs/config/
+- OpenCode Providers: https://opencode.ai/docs/providers/
